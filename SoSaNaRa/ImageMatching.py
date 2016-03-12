@@ -22,9 +22,12 @@ for i in range(0, len(img_name)):
 
 # # make Contour Image function
 def makeContourImage(img):
-    ret, thresh = cv.threshold(img, 127, 255, 0)
-    contours = cv.findContours(thresh, 2,1)
-    return contours[0]
+    ret, thresh = cv.threshold(img, 200, 255, cv.THRESH_TRUNC)
+    ret2, thresh2 = cv.threshold(thresh, 100, 255, cv.THRESH_TOZERO)
+    # ret2, thresh2 = cv.threshold(thresh, 100, 255, cv.THRESH_OTSU)
+
+    # contours = cv.findContours(thresh, 2,1)
+    return thresh2
 
 
 # # input_img matching for img_name[0:28] function
@@ -44,9 +47,8 @@ def templateMatchingForOrignalImage(img):
 print templateMatchingForOrignalImage(input_img)
 
 
-cv.imshow('My input image', input_img)
+cv.imshow('My input image', makeContourImage(input_img))
 cv.waitKey(0)
 # # How to save image
 # cv.imwrite('example.png', input_img)
 cv.destroyAllWindows()
-
