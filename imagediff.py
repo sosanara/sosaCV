@@ -168,13 +168,14 @@ def get_image_pixel_similarity(img1 = 'picture/test1.png', img2 = 'picture/test2
 	print(img_diff2)
 	print("there were", diff_pixels , "mis-matched pixels out of a total of", tot_pix , "pixels")
 
-	print("[PIXEL]: the two images are {:.2%} different".format(img_sim2))
-	print("[PIXEL]: the two images are {:.2%} similar".format(img_diff2))
+	print("[PIXEL]: the two images are {:.2%} similar".format(img_sim2))
+	print("[PIXEL]: the two images are {:.2%} different".format(img_diff2))
 
 	print("Completed in {time} seconds".format(time=time.time()-start))
 
 
-	print("============Result=================")
+	print("=======================Result=======================")
+	print("Area : Flesh Skin Color / Black Oval Ratio")
 	print("Hair Loss's ratio is {:.2%}".format(img_diff/img_sim2))
 
 def skimage_test():
