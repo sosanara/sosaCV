@@ -1,3 +1,6 @@
+import cv2
+import numpy as np
+import matplotlib
 from PIL import Image
 from PIL import ImageChops
 import sys, time
@@ -82,7 +85,7 @@ def get_image_pixel_similarity(img1 = 'picture/test1.png', img2 = 'picture/test2
 	image3 = Image.open(img3) if isinstance(img3, str) else img3
 
 	# First thing to do is resize image2 to be image1's dimensions
-	image2 = image2.resize(image1.size, Image.BILINEAR)
+	image2 = image2.resize(image2.size, Image.BILINEAR)
 
 	# each of these are lists of (r,g,b) values
 	image1_pixels = list(image1.getdata())
@@ -219,9 +222,22 @@ def skimage_test():
 	plt.show()
 
 if __name__ == '__main__':
-	img1 = "picture/test1.png"
+
+	img = cv2.imread("picture/original.png")
+	img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+	h, s, v = cv2.split(img_hsv)
+	lower_skin = np.array([0,30,150])
+	upper_skin = np.array([20,150,255])
+
+	mask = cv2.inRange(img_hsv, lower_skin, upper_skin)
+	result_img = cv2.bitwise_and(img, img, mask=mask)
+	cv2.imwrite('picture/original2.png', result_img)
+
+	img1 = "picture/original2.png"
 	img2 = "picture/test2.png"
 	img3 = "picture/test3.png"
+
 	# Create image objects
 	image1 = Image.open(img1)
 	image2 = Image.open(img2)
