@@ -69,7 +69,9 @@ def compare_hash_string_similarity(hash1, hash2):
 	print("[HASH]: the two images are {:.2%} similar".format(hash_sim))
 
 
-def get_image_pixel_similarity(img1 = 'picture/t1.png', img2 = 'picture/t2.png'):
+
+
+def get_image_pixel_similarity(img1 = 'picture/test1.png', img2 = 'picture/test2.png', img3='picture/test3.png'):
 
 	# start the timer
 	start = time.time()
@@ -77,6 +79,7 @@ def get_image_pixel_similarity(img1 = 'picture/t1.png', img2 = 'picture/t2.png')
 	# ensure we're workign with images not string representations
 	image1 = Image.open(img1) if isinstance(img1, str) else img1
 	image2 = Image.open(img2) if isinstance(img2, str) else img2
+	image3 = Image.open(img3) if isinstance(img3, str) else img3
 
 	# First thing to do is resize image2 to be image1's dimensions
 	image2 = image2.resize(image1.size, Image.BILINEAR)
@@ -126,7 +129,53 @@ def get_image_pixel_similarity(img1 = 'picture/t1.png', img2 = 'picture/t2.png')
 
 	print("Completed in {time} seconds".format(time=time.time()-start))
 
+	# First thing to do is resize image2 to be image1's dimensions
+	image3 = image3.resize(image2.size, Image.BILINEAR)
 
+	# each of these are lists of (r,g,b) values
+	image3_pixels = list(image3.getdata())
+
+	# initialize vars
+	i = 0
+	tot_img_diff = 0
+	diff_pixels = 0
+
+	for pix2 in image2_pixels:
+		pix3 = image3_pixels[i]
+
+		r_diff = abs(pix2[0] - pix3[0])
+		g_diff = abs(pix2[1] - pix3[1])
+		b_diff = abs(pix2[2] - pix3[2])
+
+		tot_pix_diff = (r_diff + g_diff + b_diff)
+
+		if tot_pix_diff != 0:
+			# print("comparing: " , pix1 , " to " , pix2)
+			diff_pixels += 1
+
+		i += 1
+
+	# keep a running total of the difference of each pixel triplet
+	tot_img_diff += tot_pix_diff
+	tot_pix = image3.size[0] * image3.size[1]
+	hues = 255
+	channels = 3
+	print(diff_pixels)
+	print(tot_pix)
+
+	img_diff2 = float(diff_pixels)/float(tot_pix)
+	img_sim2 = 1 - img_diff2
+	print(img_diff2)
+	print("there were", diff_pixels , "mis-matched pixels out of a total of", tot_pix , "pixels")
+
+	print("[PIXEL]: the two images are {:.2%} different".format(img_sim2))
+	print("[PIXEL]: the two images are {:.2%} similar".format(img_diff2))
+
+	print("Completed in {time} seconds".format(time=time.time()-start))
+
+
+	print("============Result=================")
+	print("Hair Loss's ratio is {:.2%}".format(img_diff/img_sim2))
 
 def skimage_test():
 
@@ -169,15 +218,18 @@ def skimage_test():
 	plt.show()
 
 if __name__ == '__main__':
-	img1 = "picture/t1.png"
-	img2 = "picture/t2.png"
-
+	img1 = "picture/test1.png"
+	img2 = "picture/test2.png"
+	img3 = "picture/test3.png"
 	# Create image objects
 	image1 = Image.open(img1)
 	image2 = Image.open(img2)
+	image3 = Image.open(img3)
 
 	# Test pixel by pixel
-	get_image_pixel_similarity(img1, img2)
+	get_image_pixel_similarity(img1, img2, img3)
+
+
 
 	# Test via greyscaling & hashing
 	#get_image_hash_similarity(img1, img2)
