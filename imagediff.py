@@ -38,7 +38,7 @@ def dhash(image, hash_size = 8):
 
     return ''.join(hex_string)
 
-def get_image_hash_similarity(img1='t1.png', img2='t2.png'):
+def get_image_hash_similarity(img1='picture/t1.png', img2='picture/t2.png'):
 
 	# start the timer
 	start = time.time()
@@ -69,7 +69,7 @@ def compare_hash_string_similarity(hash1, hash2):
 	print("[HASH]: the two images are {:.2%} similar".format(hash_sim))
 
 
-def get_image_pixel_similarity(img1 = 't1.png', img2 = 't2.png'):
+def get_image_pixel_similarity(img1 = 'picture/t1.png', img2 = 'picture/t2.png'):
 
 	# start the timer
 	start = time.time()
@@ -169,8 +169,8 @@ def skimage_test():
 	plt.show()
 
 if __name__ == '__main__':
-	img1 = "t1.png"
-	img2 = "t2.png"
+	img1 = "picture/t1.png"
+	img2 = "picture/t2.png"
 
 	# Create image objects
 	image1 = Image.open(img1)
