@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 import matplotlib
@@ -221,34 +222,70 @@ def skimage_test():
 
 	plt.show()
 
+# # make Contour Image function
+def makeContourImage(img):
+    ret, thresh = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+    contours = cv2.findContours(thresh, 0, 1)
+    return contours[0]
+
+# # input_img matching for img_name[0:28] function
+def templateMatchingForOrignalImage(img):
+    buf = 1
+    mbuf = 0
+    for x in range(0,len(img_name)):
+        num = cv2.matchShapes(makeContourImage(img), makeContourImage(standard_img[x]),1,0)
+        if buf>num:
+            buf = num
+            mbuf = x
+
+    cv2.imshow('Matching image',standard_img[mbuf])
+    # cv.imshow('Matching image', standard_img[mbuf])
+    return buf
+
 if __name__ == '__main__':
 
-	img = cv2.imread("picture/original.png")
-	img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+	img = cv2.imread("picture/original3.jpg")
 
-	h, s, v = cv2.split(img_hsv)
-	lower_skin = np.array([0,30,150])
-	upper_skin = np.array([20,150,255])
+cv2.imshow('My input image', img)
+cv2.waitKey(0)
 
-	mask = cv2.inRange(img_hsv, lower_skin, upper_skin)
-	result_img = cv2.bitwise_and(img, img, mask=mask)
-	cv2.imwrite('picture/original2.png', result_img)
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-	img1 = "picture/original2.png"
-	img2 = "picture/test2.png"
-	img3 = "picture/test3.png"
+h, s, v = cv2.split(img_hsv)
+lower_skin = np.array([0,30,150])
+upper_skin = np.array([20,150,255])
 
-	# Create image objects
-	image1 = Image.open(img1)
-	image2 = Image.open(img2)
-	image3 = Image.open(img3)
+mask = cv2.inRange(img_hsv, lower_skin, upper_skin)
+result_img = cv2.bitwise_and(img, img, mask=mask)
+cv2.imwrite('picture/original4.png', result_img)
 
-	# Test pixel by pixel
-	get_image_pixel_similarity(img1, img2, img3)
+img1 = "picture/original4.png"
+img2 = "picture/test2.png"
+img3 = "picture/test3.png"
 
+# Create image objects
+image1 = Image.open(img1)
+image2 = Image.open(img2)
+image3 = Image.open(img3)
 
+# Test pixel by pixel
+get_image_pixel_similarity(img1, img2, img3)
+img_similar= cv2.imread("picture/original3.jpg",0)
+img_name=[]
+standard_img =[]
 
+for i in range(0,2):
+	for j in range(0,5):
+		img_name.append('picture/'+str(i+1)+'-'+str(j+1)+'.jpg')
+
+for i in range(0, len(img_name)):
+	a = cv2.imread(img_name[i], 0)
+	standard_img.append(a)
 	# Test via greyscaling & hashing
 	#get_image_hash_similarity(img1, img2)
 
 
+print templateMatchingForOrignalImage(img_similar)
+
+cv2.imshow('image', img_similar)
+cv2.waitKey(0)
