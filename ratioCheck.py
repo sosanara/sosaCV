@@ -57,7 +57,7 @@ def get_image_pixel_similarity(img1, img2, img3):
 	# start the timer
 	start = time.time()
 
-	# ensure we're workign with images not string representations
+	# ensure we're working with images not string representations
 	image1 = Image.open(img1) if isinstance(img1, str) else img1
 	image2 = Image.open(img2) if isinstance(img2, str) else img2
 	image3 = Image.open(img3) if isinstance(img3, str) else img3
