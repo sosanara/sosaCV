@@ -13,13 +13,16 @@ def makeBinaryImage(img):
 if __name__ == '__main__':
 
     # user's picture
-    img = cv2.imread("picture/original3.jpg")
+    img = cv2.imread("picture/rr.png")
     # user's image check ( it's possible to left out.)
     cv2.imshow('My input image', img)
     cv2.waitKey(0)
     # RGB to HSV
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(img_hsv)
+    print("h",h)
+    print("s", s)
+    print(v)
     # Flesh Skin's Color ( Modify the Range )
     lower_skin = np.array([0,30,150])
     upper_skin = np.array([20,150,255])
@@ -33,5 +36,5 @@ if __name__ == '__main__':
     bithre_img = makeBinaryImage(gray_img)
     # Check ( User's pictures convert the bitrhe Image )
     cv2.imshow('Result', bithre_img)
-    cv2.imwrite('picture/original4.png', bithre_img)
+    cv2.imwrite('picture/11.png', bithre_img)
     cv2.waitKey(0)
