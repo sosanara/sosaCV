@@ -10,6 +10,9 @@ import sys, time
 # Check the Similarity(Array)
 # Max Value Return
 ########################################################################
+
+
+
 def skimage_test():
 
 	import numpy as np
@@ -102,8 +105,9 @@ def get_image_pixel_similarity(img1, img2):
 
 	# print("[PIXEL]: the two images are {:.2%} different".format(img_diff))
 	# print("[PIXEL]: the two images are {:.2%} similar".format(img_sim))
-	print("diff : {:.2%}".format(img_diff) +" / simil : {:.2%}".format(img_sim))
+	##print("diff : {:.2%}".format(img_diff) +" / simil : {:.2%}".format(img_sim))
 	# print("Completed in {time} seconds".format(time=time.time()-start))
+	return img_diff
 
 if __name__ == '__main__':
     # user's picture
@@ -115,18 +119,33 @@ for i in range(0,4):
 	for j in range(0,8):
 		img_name.append('photoshopImg/'+str(i+1)+'-'+str(j+1)+'.png')
 
-
 for i in range(0, len(img_name)):
 	a = cv2.imread(img_name[i], 0)
 	standard_img.append(a)
 
-img2 = "photoshopImg/1-4.png"
-for i in range(0, len(img_name)):
-	print(img_name[i])
+# img2 = "photoshopImg/1-4.png"
+# for i in range(0, len(img_name)):
+# 	print(img_name[i])
 
 image1 = Image.open(img1)
 
+value=[]*len(img_name)
+value2=[]
+value3=[]
+value4=[]
+# minNum = 1000
+
 for i in range(0, len(img_name)):
+	min=[]
 	image2 = Image.open(img_name[i])
-	get_image_pixel_similarity(img1, img_name[i])
+	value = get_image_pixel_similarity(img1, img_name[i])
+	value2 = int(round(value*1000))
+	value3.append(value2)
+print(value3)
+print(type(value3))
+# print(min(value3))
+
+# 	if(min > value3[i]):
+# 		min = value3[i]
+# print(min)
 
