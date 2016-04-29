@@ -95,8 +95,10 @@ if __name__ == '__main__':
             print result_file
             result_name = 0
             valueAll.append(value)
-            out.write("#"+str(a)+",")
-            out.write(str(valueAll[result_name]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
+            # out.write(str(valueAll[a]))
             out.write('\n')
 
         elif(14 <= diff_percentage < 25):
@@ -116,8 +118,9 @@ if __name__ == '__main__':
 
             print result_file
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
 
@@ -141,8 +144,9 @@ if __name__ == '__main__':
 
             type = str(j)
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
         elif(36 <= diff_percentage < 47):
@@ -165,8 +169,9 @@ if __name__ == '__main__':
 
             type = str(j)
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
         elif(47 <= diff_percentage < 58):
@@ -189,8 +194,9 @@ if __name__ == '__main__':
 
             type = str(j)
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
         elif(58 <= diff_percentage < 69):
@@ -213,8 +219,9 @@ if __name__ == '__main__':
 
             type = str(j)
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
         elif(69 <= diff_percentage < 80):
@@ -237,8 +244,9 @@ if __name__ == '__main__':
 
             type = str(j)
             valueAll.append(value)
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
 
         elif(80 <= diff_percentage):
@@ -248,12 +256,11 @@ if __name__ == '__main__':
             result_file = '4.png'
             result_name=4
             result_file = reference_filename + result_file
-            # cv2.imwrite("4/"+str(i)+".png",img)
-            # return result_file
             valueAll.append(value)
             print result_file
-            out.write("#"+str(result_name)+",")
-            out.write(str(valueAll[a]))
+            out.write(str(result_name)+", ")
+            for x in valueAll[a] :
+                out.write(str(x)+", ")
             out.write('\n')
     out.close()
 
