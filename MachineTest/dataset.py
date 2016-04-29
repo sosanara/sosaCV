@@ -1,6 +1,6 @@
 import csv
 import Image
-IMAGE_NUM=2
+IMAGE_NUM=11
 INPUT_IMAGE_DIRECTORY="img1/"
 TRAINING_DATA = []
 value = []
@@ -16,10 +16,10 @@ if __name__ == '__main__':
     for num in range(0, IMAGE_NUM) :
         im=Image.open(TRAINING_DATA[num]).convert('L')
         pix=im.load()
-        width=im.size[1]
-        height=im.size[0]
-        for i in range(height):
-            for j in range(width):
+        #width=im.size[1]
+        #height=im.size[0]
+        for i in range(77,465):
+            for j in range(185,678):
                 if pix[i,j] == 255 :
                     pix[i,j] = 1
                 value.append(pix[i,j])
